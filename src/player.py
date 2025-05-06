@@ -1,0 +1,20 @@
+class Player:
+    def __init__(self):
+        self.hp = 90
+        self.attack = 10
+        self.inventory = []
+        self.location = "dungeon"
+
+    def move(self, destination, map_layout):
+        if destination in map_layout.get(self.location, []):
+            self.location = destination
+            return True
+        raise ValueError(f"Cannot move to {destination} from {self.location}")
+
+    def take_damage(self, dmg):
+        if dmg < 0:
+            raise ValueError("Damage cannot be negative")
+        self.hp -= dmg
+
+    def is_alive(self):
+        return self.hp > 0
