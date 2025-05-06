@@ -1,0 +1,17 @@
+class Enemy:
+    def __init__(self, name, hp, attack):
+        self.name = name
+        self.hp = hp
+        if self.hp < 1:
+            raise ValueError("Hp must be greater than zero.")
+        self.attack = attack
+        if self.attack < 0:
+            raise ValueError("Attack cannot be negative")
+
+    def take_damage(self, dmg):
+        if dmg < 0:
+            raise ValueError("Damage cannot be negative")
+        self.hp -= dmg
+
+    def is_alive(self):
+        return self.hp > 0
