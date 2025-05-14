@@ -17,7 +17,6 @@ class TestLeftSewerLocation(unittest.TestCase):
     def test_fight_and_win(self, mock_stdout, mock_input, mock_combat):
         mock_combat.return_value = None
         result = left_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.location, "forest")
         self.assertEqual(self.player.hp, 105)  # 90 + 15
@@ -29,7 +28,6 @@ class TestLeftSewerLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_run_away(self, mock_stdout, mock_input, mock_combat):
         result = left_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.location, "forest")
         self.assertEqual(self.player.hp, 90)
@@ -52,9 +50,7 @@ class TestLeftSewerLocation(unittest.TestCase):
     def test_player_dies_in_combat(self, mock_stdout, mock_input, mock_combat):
         def fake_combat(player, enemy):
             player.hp = 0
-
         mock_combat.side_effect = fake_combat
-
         result = left_sewer_location(self.player)
         self.assertFalse(result)
 

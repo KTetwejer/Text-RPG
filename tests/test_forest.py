@@ -38,7 +38,6 @@ class TestForestLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_search_herbs_twice(self, mock_stdout, mock_input):
         forest_location(self.player)
-
         self.assertIn("herbs", self.player.inventory)
         output = mock_stdout.getvalue()
         self.assertIn("Znajdujesz kilka ziół", output)
@@ -48,7 +47,6 @@ class TestForestLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_invalid_input_then_move(self, mock_stdout, mock_input):
         forest_location(self.player)
-
         self.assertEqual(self.player.location, "camp")
         output = mock_stdout.getvalue()
         self.assertIn("Nieznana akcja", output)
@@ -58,8 +56,7 @@ class TestForestLocation(unittest.TestCase):
     def test_hp_does_not_exceed_limit(self, mock_stdout, mock_input):
         self.player.hp = 100
         forest_location(self.player)
-
-        self.assertEqual(self.player.hp, 105)  # zakładamy brak górnego limitu w kodzie
+        self.assertEqual(self.player.hp, 105)
 
     @patch("builtins.input", side_effect=["1", "2"])
     @patch("sys.stdout", new_callable=StringIO)
@@ -75,13 +72,12 @@ class TestForestLocation(unittest.TestCase):
         output = mock_stdout.getvalue()
         self.assertEqual(output.count("Nic więcej tu nie ma."), 2)
 
-    @patch("builtins.input", side_effect=["1", "2"])
+    @patch("builtins.input", side_effect=["2"])
     @patch("sys.stdout", new_callable=StringIO)
-    def test_output_contains_polana_and_ziola(self, mock_stdout, mock_input):
+    def test_initial_message(self, mock_stdout, mock_input):
         forest_location(self.player)
         output = mock_stdout.getvalue()
         self.assertIn("leśną polanę", output)
-        self.assertIn("ziół", output)
 
     @patch("builtins.input", side_effect=["2"])
     @patch("sys.stdout", new_callable=StringIO)
