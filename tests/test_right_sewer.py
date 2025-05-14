@@ -16,7 +16,6 @@ class TestRightSewerLocation(unittest.TestCase):
     def test_run_and_get_hurt(self, mock_stdout, mock_input):
         self.player.hp = 90
         result = right_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.hp, 85)
         self.assertEqual(self.player.location, "river")
@@ -27,7 +26,6 @@ class TestRightSewerLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_walk_and_find_gold(self, mock_stdout, mock_input):
         result = right_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertIn("gold", self.player.inventory)
         self.assertEqual(self.player.location, "river")
@@ -38,7 +36,6 @@ class TestRightSewerLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_invalid_input_then_walk(self, mock_stdout, mock_input):
         result = right_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertIn("gold", self.player.inventory)
         output = mock_stdout.getvalue()
@@ -49,7 +46,6 @@ class TestRightSewerLocation(unittest.TestCase):
     def test_invalid_input_then_run(self, mock_stdout, mock_input):
         self.player.hp = 50
         result = right_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.hp, 45)
         output = mock_stdout.getvalue()
@@ -60,7 +56,6 @@ class TestRightSewerLocation(unittest.TestCase):
     def test_hp_does_not_go_negative(self, mock_stdout, mock_input):
         self.player.hp = 4
         result = right_sewer_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.hp, -1)
 

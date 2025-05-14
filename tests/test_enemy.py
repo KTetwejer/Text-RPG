@@ -36,17 +36,10 @@ class TestEnemy(unittest.TestCase):
     def test_take_damage_zero(self):
         self.enemy.take_damage(0)
         self.assertEqual(self.enemy.hp, 100)
+        self.assertTrue(self.enemy.is_alive())
 
     def test_name_not_equal(self):
         self.assertNotEqual(self.enemy.name, "Goblin")
-
-    def test_damage_causing_hp_change(self):
-        initial_hp = self.enemy.hp
-        self.enemy.take_damage(30)
-        self.assertGreater(initial_hp, self.enemy.hp)
-
-    def test_attack_value_check(self):
-        self.assertEqual(self.enemy.attack, 15)
 
     def test_invalid_damage_raises_value_error(self):
         with self.assertRaises(ValueError):

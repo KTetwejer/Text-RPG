@@ -45,6 +45,7 @@ class TestPlayer(unittest.TestCase):
     def test_take_damage_more_than_hp(self):
         self.player.take_damage(100)
         self.assertLess(self.player.hp, 0)
+        self.assertFalse(self.player.is_alive())
 
 
 if __name__ == '__main__':

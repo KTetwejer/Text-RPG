@@ -12,7 +12,7 @@ class TestMapLayout(unittest.TestCase):
     def test_no_loops(self):
         for location, destinations in map_layout.items():
             self.assertNotIn(location, destinations,
-                             msg=f"Location {location} should not link to itself")
+                             msg=f"Lokacja {location} nie powinna łączyć się ze sobą.")
 
     def test_locations_are_lists(self):
         for location, destinations in map_layout.items():

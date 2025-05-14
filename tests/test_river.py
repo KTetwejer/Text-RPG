@@ -16,7 +16,6 @@ class TestRiverLocation(unittest.TestCase):
     def test_find_herbs_then_go_to_camp(self, mock_stdout, mock_input):
         self.player.hp = 90
         result = river_location(self.player)
-
         self.assertTrue(result)
         self.assertIn("herbs", self.player.inventory)
         self.assertEqual(self.player.hp, 95)
@@ -29,7 +28,6 @@ class TestRiverLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_direct_to_camp(self, mock_stdout, mock_input):
         result = river_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.location, "camp")
         output = mock_stdout.getvalue()
@@ -39,7 +37,6 @@ class TestRiverLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_search_herbs_twice(self, mock_stdout, mock_input):
         river_location(self.player)
-
         self.assertIn("herbs", self.player.inventory)
         output = mock_stdout.getvalue()
         # pierwszy raz zioła, drugi raz komunikat "Nic więcej tu nie ma."
@@ -50,7 +47,6 @@ class TestRiverLocation(unittest.TestCase):
     @patch("sys.stdout", new_callable=StringIO)
     def test_invalid_input_then_move(self, mock_stdout, mock_input):
         result = river_location(self.player)
-
         self.assertTrue(result)
         self.assertEqual(self.player.location, "camp")
         output = mock_stdout.getvalue()
@@ -61,15 +57,12 @@ class TestRiverLocation(unittest.TestCase):
     def test_hp_accumulates_beyond_100(self, mock_stdout, mock_input):
         self.player.hp = 100
         river_location(self.player)
-
-        # jeśli nie ma limitu górnego, wzrost o 5
         self.assertEqual(self.player.hp, 105)
 
     @patch("builtins.input", side_effect=["1", "2"])
     @patch("sys.stdout", new_callable=StringIO)
     def test_herbs_only_once(self, mock_stdout, mock_input):
         river_location(self.player)
-        # herb tylko raz w ekwipunku
         self.assertEqual(self.player.inventory.count("herbs"), 1)
 
     @patch("builtins.input", side_effect=["1", "1", "1", "2"])
@@ -77,7 +70,6 @@ class TestRiverLocation(unittest.TestCase):
     def test_multiple_failed_searches(self, mock_stdout, mock_input):
         river_location(self.player)
         output = mock_stdout.getvalue()
-        # po pierwszym zbiorze, dwie kolejne próby "1" dają "Nic więcej tu nie ma."
         self.assertEqual(output.count("Nic więcej tu nie ma."), 2)
 
     @patch("builtins.input", side_effect=["1", "2"])
